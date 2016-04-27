@@ -77,23 +77,28 @@ static void check_yaml(int status)
 static int handle_null(void* ctx)
 {
 	yaml_event_t event;
-	yaml_scalar_event_initialize(&event, NULL, NULL, "null", 4, true,
-			true, YAML_PLAIN_SCALAR_STYLE);
+	yaml_scalar_event_initialize(&event, NULL, NULL, (yaml_char_t*)"null",
+			4, true, true, YAML_PLAIN_SCALAR_STYLE);
 	check_yaml(yaml_emitter_emit(&g_emitter, &event));
+
+	return true;
 }
 
 static int handle_boolean(void* ctx, int val)
 {
 	yaml_event_t event;
 	if (val) {
-		yaml_scalar_event_initialize(&event, NULL, NULL, "true", 4, 
-			true, true, YAML_ANY_SCALAR_STYLE);
+		yaml_scalar_event_initialize(&event, NULL, NULL,
+				(yaml_char_t*)"true", 4, true, true,
+				YAML_ANY_SCALAR_STYLE);
 	} else {
-		yaml_scalar_event_initialize(&event, NULL, NULL, "false", 5, 
-			true, true, YAML_ANY_SCALAR_STYLE);
+		yaml_scalar_event_initialize(&event, NULL, NULL,
+				(yaml_char_t*)"false", 5, true, true,
+				YAML_ANY_SCALAR_STYLE);
 	}
 
 	check_yaml(yaml_emitter_emit(&g_emitter, &event));
+	return true;
 }
 
 static int handle_integer(void* ctx, long long val)
@@ -106,9 +111,11 @@ static int handle_integer(void* ctx, long long val)
 	}
 
 	yaml_event_t event;
-	yaml_scalar_event_initialize(&event, NULL, NULL, str, (size_t)num,
-			true, true, YAML_ANY_SCALAR_STYLE);
+	yaml_scalar_event_initialize(&event, NULL, NULL, (yaml_char_t*)str,
+			(size_t)num, true, true, YAML_ANY_SCALAR_STYLE);
 	check_yaml(yaml_emitter_emit(&g_emitter, &event));
+
+	return true;
 }
 
 static int handle_double(void* ctx, double val)
@@ -117,9 +124,11 @@ static int handle_double(void* ctx, double val)
 	int num = snprintf(str, sizeof(str), "%f", val);
 
 	yaml_event_t event;
-	yaml_scalar_event_initialize(&event, NULL, NULL, str, (size_t)num,
-			true, true, YAML_ANY_SCALAR_STYLE);
+	yaml_scalar_event_initialize(&event, NULL, NULL, (yaml_char_t*)str,
+			(size_t)num, true, true, YAML_ANY_SCALAR_STYLE);
 	check_yaml(yaml_emitter_emit(&g_emitter, &event));
+
+	return true;
 }
 
 static int handle_number(void* ctx, const char* str, size_t len)
@@ -129,6 +138,8 @@ static int handle_number(void* ctx, const char* str, size_t len)
 			(yaml_char_t*)str, len, true, true,
 			YAML_ANY_SCALAR_STYLE);
 	check_yaml(yaml_emitter_emit(&g_emitter, &event));
+
+	return true;
 }
 
 static int handle_string(void* ctx, const unsigned char* str, size_t len)
@@ -138,6 +149,8 @@ static int handle_string(void* ctx, const unsigned char* str, size_t len)
 			(yaml_char_t*)str, len, true, true,
 			YAML_ANY_SCALAR_STYLE);
 	check_yaml(yaml_emitter_emit(&g_emitter, &event));
+
+	return true;
 }
 
 static int handle_map_start(void* ctx)
@@ -146,6 +159,8 @@ static int handle_map_start(void* ctx)
 	yaml_mapping_start_event_initialize(&event, NULL, NULL, true,
 			YAML_ANY_MAPPING_STYLE);
 	check_yaml(yaml_emitter_emit(&g_emitter, &event));
+
+	return true;
 }
 
 static int handle_map_key(void* ctx, const unsigned char* str, size_t len)
@@ -155,6 +170,8 @@ static int handle_map_key(void* ctx, const unsigned char* str, size_t len)
 			(yaml_char_t*)str, len, true, true,
 			YAML_ANY_SCALAR_STYLE);
 	check_yaml(yaml_emitter_emit(&g_emitter, &event));
+
+	return true;
 }
 
 static int handle_map_end(void* ctx)
@@ -162,6 +179,8 @@ static int handle_map_end(void* ctx)
 	yaml_event_t event;
 	yaml_mapping_end_event_initialize(&event);
 	check_yaml(yaml_emitter_emit(&g_emitter, &event));
+
+	return true;
 }
 
 static int handle_array_start(void* ctx)
@@ -170,6 +189,8 @@ static int handle_array_start(void* ctx)
 	yaml_sequence_start_event_initialize(&event, NULL, NULL, false,
 			YAML_ANY_SEQUENCE_STYLE);
 	check_yaml(yaml_emitter_emit(&g_emitter, &event));
+
+	return true;
 }
 
 static int handle_array_end(void* ctx)
@@ -177,6 +198,8 @@ static int handle_array_end(void* ctx)
 	yaml_event_t event;
 	yaml_sequence_end_event_initialize(&event);
 	check_yaml(yaml_emitter_emit(&g_emitter, &event));
+
+	return true;
 }
 
 static const yajl_callbacks callbacks = {
@@ -245,7 +268,7 @@ int main(int argc, const char* argv[])
 	
 	yajl_handle yajl = yajl_alloc(&callbacks, NULL, NULL);
 
-	char buf[4096];
+	unsigned char buf[4096];
 	size_t num;
 	while ((num = fread(buf, 1, sizeof(buf), file)) > 0) {
 		check_yajl(yajl_parse(yajl, buf, num));
