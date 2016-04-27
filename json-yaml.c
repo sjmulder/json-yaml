@@ -5,7 +5,7 @@
 #include <yajl/yajl_parse.h>
 #include <yaml.h>
 
-#define PROG_NAME	"yaml-json"
+#define PROG_NAME	"json-yaml"
 #define PROG_VER	"0.1"
 
 static yajl_handle	g_yajl;

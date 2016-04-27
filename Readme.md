@@ -3,7 +3,7 @@ json-yaml
 
 `./json-yaml -h`
 
-    Usage: yaml-json [OPTIONS] [FILE]
+    Usage: json-yaml [OPTIONS] [FILE]
     
     Convert JSON into YAML
     Uses standard input if no filename is supplied.
