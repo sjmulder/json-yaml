@@ -18,8 +18,6 @@ Examples
 
 `./json-yaml sample.json`
 
-    Display all 2232 possibilities? (y or n)
-    sijmens-mbp:json-yaml sjmulder$ cat sample.json | ./json-yaml 
     firstName: John
     lastName: Smith
     isAlive: true
