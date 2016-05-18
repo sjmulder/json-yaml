@@ -274,6 +274,11 @@ int main(int argc, const char* argv[])
 		check_yajl(yajl_parse(yajl, buf, num));
 	}
 
+	if (ferror(file)) {
+		perror(PROG_NAME);
+		exit(EXIT_FAILURE);
+	}
+
 	check_yajl(yajl_complete_parse(yajl));
 
 	yaml_document_end_event_initialize(&event, true);
@@ -281,11 +286,6 @@ int main(int argc, const char* argv[])
 
 	yaml_stream_end_event_initialize(&event);
 	check_yaml(yaml_emitter_emit(&g_emitter, &event));
-
-	if (ferror(file)) {
-		perror(PROG_NAME);
-		exit(EXIT_FAILURE);
-	}
 
 	return 0;
 }
