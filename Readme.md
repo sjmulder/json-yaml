@@ -53,6 +53,14 @@ You need [libyaml](http://pyyaml.org/wiki/LibYAML) and [yajl](yajl). Then:
 
 `make`
 
+Other targets:
+
+    make check
+    make install
+    make uninstall
+
+See Makefile for variables.
+
 
 Authors
 -------
