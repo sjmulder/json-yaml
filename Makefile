@@ -2,6 +2,7 @@ prefix ?= /usr/local
 bindir ?= $(prefix)/bin
 mandir ?= $(prefix)/share/man
 
+CFLAGS += -g
 LDLIBS += -lyajl -lyaml
 
 .PHONY: all install uninstall check clean
