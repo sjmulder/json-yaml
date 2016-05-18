@@ -6,7 +6,7 @@
 #include <yaml.h>
 
 #define PROG_NAME	"json-yaml"
-#define PROG_VER	"0.1"
+#define PROG_VER	"1.0.0"
 
 static yajl_handle	g_yajl;
 static bool		g_yaml_initialized = false;
