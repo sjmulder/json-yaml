@@ -17,5 +17,8 @@ uninstall:
 	rm -f $(bindir)/bin/json-yaml
 	rm -f $(mandir)/man1/json-yaml.1
 
+check: json-yaml sample.json sample.yaml
+	./json-yaml sample.json | diff -u sample.yaml -
+
 clean:
 	rm -f json-yaml
