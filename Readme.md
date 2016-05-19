@@ -62,6 +62,16 @@ Other targets:
 See Makefile for variables.
 
 
+Links
+-----
+
+Home page:  
+https://github.com/sjmulder/json-yaml
+
+Builds:  
+https://travis-ci.org/sjmulder/json-yaml/
+
+
 Authors
 -------
 
