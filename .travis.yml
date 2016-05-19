@@ -1,5 +1,7 @@
 language: c
 script: make && make check
+sudo: required
+dist: trusty
 compiler:
  - clang
  - gcc
