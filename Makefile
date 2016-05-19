@@ -14,7 +14,7 @@ install: json-yaml json-yaml.1
 	install -D json-yaml.1 $(mandir)/man1/json-yaml.1
 
 uninstall:
-	rm -f $(bindir)/bin/json-yaml
+	rm -f $(bindir)/json-yaml
 	rm -f $(mandir)/man1/json-yaml.1
 
 check: json-yaml sample.json sample.yaml
