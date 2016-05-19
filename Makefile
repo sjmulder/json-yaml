@@ -22,3 +22,4 @@ check: json-yaml sample.json sample.yaml
 
 clean:
 	rm -f json-yaml
+	rm -rf json-yaml.dSYM/
