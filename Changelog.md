@@ -12,6 +12,7 @@ Date: TBD
  * Added: a Travis CI configuration file for automated builds
  * Added: a changelog 
  * Added: links section with build status in readme
+ * Changed: tweaked Makefile to make `make install` work on FreeBSD
 
 
 Version 1.0.0

@@ -10,8 +10,9 @@ LDLIBS += -lyajl -lyaml
 all: json-yaml
 
 install: json-yaml json-yaml.1
-	install -D json-yaml $(bindir)/json-yaml
-	install -D json-yaml.1 $(mandir)/man1/json-yaml.1
+	mkdir -p $(bindir) $(mandir)/man1
+	install json-yaml $(bindir)/json-yaml
+	install json-yaml.1 $(mandir)/man1/json-yaml.1
 
 uninstall:
 	rm -f $(bindir)/json-yaml
