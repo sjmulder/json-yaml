@@ -65,11 +65,13 @@ See Makefile for variables.
 Links
 -----
 
-Home page:  
+Home page:
 https://github.com/sjmulder/json-yaml
 
-Builds:  
+Builds:
 https://travis-ci.org/sjmulder/json-yaml/
+
+[![Build Status](https://travis-ci.org/sjmulder/json-yaml.svg?branch=master)](https://travis-ci.org/sjmulder/json-yaml)
 
 
 Authors
