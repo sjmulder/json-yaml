@@ -1,10 +1,16 @@
 language: c
+
 script: make && make check
+
 sudo: required
 dist: trusty
+
 compiler:
  - clang
  - gcc
-before_install:
- - sudo apt-get -qq update
- - sudo apt-get install -y libyajl-dev libyaml-dev
+
+addons:
+  apt:
+    packages:
+    - libyajl-dev
+    - libyaml-dev
