@@ -2,10 +2,10 @@ Changelog
 =========
 
 
-Unreleased
-----------
+Version 1.0.1
+-------------
 
-Date: TBD
+Date: 2015-05-20
 
  * Fixed: `make uninstall` would try to remove `$(bindir)/bin/json-yaml`
    instead of `$(bindir)/json-yaml`
