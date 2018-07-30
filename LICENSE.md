@@ -1,4 +1,4 @@
-Copyright (c) 2016, Sijmen Mulder
+Copyright (c) 2016, 2018 Sijmen Mulder
 
 All rights reserved.
 

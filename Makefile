@@ -1,18 +1,17 @@
-prefix ?= /usr/local
-bindir ?= $(prefix)/bin
-mandir ?= $(prefix)/share/man
+PREFIX    ?= /usr/local
+MANPREFIX ?= $(prefix)/man
 
-CFLAGS += -std=c99 -g
-LDLIBS += -lyajl -lyaml
-
-.PHONY: all install uninstall check clean
+CFLAGS  += -I/usr/local/include -Wall -Wextra
+LDFLAGS += -L/usr/local/lib
+LDLIBS  += -lyajl -lyaml
 
 all: json-yaml
 
-install: json-yaml json-yaml.1
-	mkdir -p $(bindir) $(mandir)/man1
-	install json-yaml $(bindir)/json-yaml
-	install json-yaml.1 $(mandir)/man1/json-yaml.1
+install: json-yaml
+	install -d $(DESTDIR)$(PREFIX)/bin
+	install -d $(DESTDIR)$(MANPREFIX)/man
+	install -m755 json-yaml $(DESTDIR)$(PREFIX)/bin/
+	install -m644 json-yaml.1 $(DESTDIR)$(MANPREFIX)/man1/
 
 uninstall:
 	rm -f $(bindir)/json-yaml
@@ -23,4 +22,5 @@ check: json-yaml sample.json sample.yaml
 
 clean:
 	rm -f json-yaml
-	rm -rf json-yaml.dSYM/
+
+.PHONY: all install uninstall check clean

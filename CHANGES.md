@@ -1,6 +1,13 @@
 Changelog
 =========
 
+Unreleased
+----------
+
+Date: TBD
+
+ * Changed: rewritten Makefile
+ * Changed: reorganised documentation files
 
 Version 1.0.1
 -------------
@@ -13,7 +20,6 @@ Date: 2015-05-20
  * Added: a changelog 
  * Added: links section with build status in readme
  * Changed: tweaked Makefile to make `make install` work on FreeBSD
-
 
 Version 1.0.0
 -------------
