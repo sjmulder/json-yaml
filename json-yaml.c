@@ -261,7 +261,6 @@ main(int argc, const char **argv)
 {
 	FILE *file;
 	yaml_event_t event;;
-	yajl_handle yajl;
 	unsigned char buf[4096];
 	size_t num;
 
@@ -288,17 +287,17 @@ main(int argc, const char **argv)
 	yaml_document_start_event_initialize(&event, NULL, NULL, NULL, true);
 	check_yaml(yaml_emitter_emit(&g_emitter, &event));
 	
-	yajl = yajl_alloc(&callbacks, NULL, NULL);
+	g_yajl = yajl_alloc(&callbacks, NULL, NULL);
 
 	while ((num = fread(buf, 1, sizeof(buf), file)) > 0)
-		check_yajl(yajl_parse(yajl, buf, num));
+		check_yajl(yajl_parse(g_yajl, buf, num));
 
 	if (ferror(file)) {
 		perror(PROG_NAME);
 		exit(EXIT_FAILURE);
 	}
 
-	check_yajl(yajl_complete_parse(yajl));
+	check_yajl(yajl_complete_parse(g_yajl));
 
 	yaml_document_end_event_initialize(&event, true);
 	check_yaml(yaml_emitter_emit(&g_emitter, &event));
