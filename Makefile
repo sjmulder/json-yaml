@@ -5,11 +5,15 @@ CFLAGS  += -I/usr/local/include -Wall -Wextra
 LDFLAGS += -L/usr/local/lib
 LDLIBS  += -lyajl -lyaml
 
+# pkgsrc-based (NetBSD, Minix)
+#CFLAGS  += -I/usr/pkg/include
+#LDFLAGS += -L/usr/pkg/lib -Wl,-R/usr/pkg/lib
+
 all: json-yaml
 
 install: json-yaml
 	install -d $(DESTDIR)$(PREFIX)/bin
-	install -d $(DESTDIR)$(MANPREFIX)/man
+	install -d $(DESTDIR)$(MANPREFIX)/man1
 	install -m755 json-yaml $(DESTDIR)$(PREFIX)/bin/
 	install -m644 json-yaml.1 $(DESTDIR)$(MANPREFIX)/man1/
 

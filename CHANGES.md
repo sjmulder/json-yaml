@@ -1,6 +1,14 @@
 Changelog
 =========
 
+Version 1.1.1
+-------------
+
+Date: 2017-07-30
+
+ * Fixed: `make install` created `$(MANPREFIX)/man` instead of
+   `$(MANPREFIX)/man1`.
+
 Version 1.1
 -----------
 
