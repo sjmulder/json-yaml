@@ -8,20 +8,13 @@
 #define PROG_NAME	"json-yaml"
 #define PROG_VER	"1.0.1"
 
+const char usage[] =
+    PROG_NAME " " PROG_VER "\n"
+    "usage: " PROG_NAME " [filename]\n";
+
 static yajl_handle	g_yajl;
 static bool		g_yaml_initialized = false;
 static yaml_emitter_t	g_emitter;
-
-static
-void print_help()
-{
-	printf("Usage: " PROG_NAME " [OPTIONS] [FILE]\n\n");
-	printf("Convert JSON into YAML\n");
-	printf("Uses standard input if no filename is supplied.\n\n");
-	printf("Options:\n");
-	printf(" -v, --version   print version number and exit\n");
-	printf(" -h, --help      print this message and exit\n");
-}
 
 static
 void cleanup()
@@ -266,9 +259,6 @@ static const yajl_callbacks callbacks = {
 int
 main(int argc, const char **argv)
 {
-	const char *filename = NULL;
-	const char *arg;
-	int i;
 	FILE *file;
 	yaml_event_t event;;
 	yajl_handle yajl;
@@ -277,31 +267,12 @@ main(int argc, const char **argv)
 
 	atexit(cleanup);
 
-	for (i = 1; i < argc; i++) {
-		arg = argv[i];
-		if (strcmp("-v", arg) == 0 ||
-				strcmp("--version", arg) == 0) {
-			printf(PROG_VER "\n");
-			exit(EXIT_SUCCESS);
-		} else if (strcmp("-h", arg) == 0 ||
-				strcmp("--help", arg) == 0) {
-			print_help();
-			exit(EXIT_SUCCESS);
-		} else if (arg[0] == '-') {
-			fprintf(stderr, PROG_NAME ": unknown option: %s "
-				"(try -h)\n", arg);
-			exit(EXIT_FAILURE);
-		} else if (filename) {
-			fprintf(stderr, PROG_NAME ": multiple filenames "
-				"given (try -h)\n");
-			exit(EXIT_FAILURE);
-		} else {
-			filename = arg;
-		}
-	}
-	
-	file = stdin;
-	if (filename && !(file = fopen(filename, "r"))) {
+	if (argc < 2) {
+		file = stdin;
+	} else if (argc > 2 || argv[1][0] == '-') {
+		fputs(usage, stderr);
+		return 1;
+	} else if (!(file = fopen(argv[1], "r"))) {
 		perror(PROG_NAME);
 		exit(EXIT_FAILURE);
 	}

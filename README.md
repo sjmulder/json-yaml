@@ -1,27 +1,9 @@
 json-yaml
 =========
 
-Convert JSON into YAML.
-
-Synopsis
---------
-
 **json-yaml** [_options_] [_file_]
 
-Description
------------
-
-Converts JSON to YAML. Uses standard output if no filename is supplied.
-
-Options:
-
-**-v**, **--version**
-
-Print version number and exit.
-
-**-h**, **-help**
-
-Print a short help message and exit.
+Convert JSON to YAML. Uses standard output if no filename is supplied.
 
 Examples
 --------
