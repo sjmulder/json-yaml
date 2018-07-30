@@ -12,7 +12,7 @@ Date: TBD
 Version 1.0.1
 -------------
 
-Date: 2015-05-20
+Date: 2016-05-20
 
  * Fixed: `make uninstall` would try to remove `$(bindir)/bin/json-yaml`
    instead of `$(bindir)/json-yaml`
