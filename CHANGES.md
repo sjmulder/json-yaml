@@ -1,18 +1,18 @@
 Changelog
 =========
 
-Unreleased
-----------
+Version 1.1
+-----------
 
-Date: TBD
+Date: 2017-07-30
 
- * Fixed: the YAJL handle was not cleaned up as indented
- * Changed: rewritten Makefile
- * Changed: reorganised documentation files
- * Changed: rewrote manual page in mdoc(1)
- * Changed: minor refactoring (removal of stdbool, use of stderr, etc)
  * Removed: command line options. Any flag-like argument will cause the
    version and usage information to be printed
+ * Fixed: the YAJL handle was not cleaned up as indented
+ * Changed: rewritten Makefile
+ * Changed: rewritten manual page in mdoc(1)
+ * Changed: reorganised documentation files
+ * Changed: minor refactoring (removal of stdbool, use of stderr, etc)
 
 Version 1.0.1
 -------------

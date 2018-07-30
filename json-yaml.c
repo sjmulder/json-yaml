@@ -5,7 +5,7 @@
 #include <yajl/yajl_parse.h>
 #include <yaml.h>
 
-#define VERSION "1.0.1"
+#define VERSION "1.1"
 
 const char usage[] =
     "json-yaml " VERSION "\n"
