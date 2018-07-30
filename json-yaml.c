@@ -1,4 +1,3 @@
-#include <stdbool.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -13,7 +12,7 @@ const char usage[] =
     "usage: " PROG_NAME " [filename]\n";
 
 static yajl_handle	g_yajl;
-static bool		g_yaml_initialized = false;
+static int		g_yaml_initialized;
 static yaml_emitter_t	g_emitter;
 
 static
@@ -26,7 +25,7 @@ void cleanup()
 
 	if (g_yaml_initialized) {
 		yaml_emitter_delete(&g_emitter);
-		g_yaml_initialized = false;
+		g_yaml_initialized = 0;
 	}
 }
 
@@ -77,10 +76,10 @@ handle_null(void *ctx)
 	(void)ctx;
 
 	yaml_scalar_event_initialize(&event, NULL, NULL,
-	    (yaml_char_t *)"null", 4, true, true, YAML_PLAIN_SCALAR_STYLE);
+	    (yaml_char_t *)"null", 4, 1, 1, YAML_PLAIN_SCALAR_STYLE);
 	check_yaml(yaml_emitter_emit(&g_emitter, &event));
 
-	return true;
+	return 1;
 }
 
 static int
@@ -92,16 +91,14 @@ handle_boolean(void *ctx, int val)
 
 	if (val) {
 		yaml_scalar_event_initialize(&event, NULL, NULL,
-		    (yaml_char_t*)"true", 4, true, true,
-		    YAML_ANY_SCALAR_STYLE);
+		    (yaml_char_t*)"true", 4, 1, 1, YAML_ANY_SCALAR_STYLE);
 	} else {
 		yaml_scalar_event_initialize(&event, NULL, NULL,
-		    (yaml_char_t*)"false", 5, true, true,
-		    YAML_ANY_SCALAR_STYLE);
+		    (yaml_char_t*)"false", 5, 1, 1, YAML_ANY_SCALAR_STYLE);
 	}
 
 	check_yaml(yaml_emitter_emit(&g_emitter, &event));
-	return true;
+	return 1;
 }
 
 static int
@@ -123,10 +120,10 @@ handle_integer(void *ctx, long long val)
 	}
 
 	yaml_scalar_event_initialize(&event, NULL, NULL, (yaml_char_t *)str,
-	    (size_t)num, true, true, YAML_ANY_SCALAR_STYLE);
+	    (size_t)num, 1, 1, YAML_ANY_SCALAR_STYLE);
 	check_yaml(yaml_emitter_emit(&g_emitter, &event));
 
-	return true;
+	return 1;
 }
 
 static int
@@ -140,10 +137,10 @@ handle_double(void *ctx, double val)
 	int num = snprintf(str, sizeof(str), "%f", val);
 
 	yaml_scalar_event_initialize(&event, NULL, NULL, (yaml_char_t*)str,
-	    (size_t)num, true, true, YAML_ANY_SCALAR_STYLE);
+	    (size_t)num, 1, 1, YAML_ANY_SCALAR_STYLE);
 	check_yaml(yaml_emitter_emit(&g_emitter, &event));
 
-	return true;
+	return 1;
 }
 
 static int
@@ -154,10 +151,10 @@ handle_number(void *ctx, const char *str, size_t len)
 	(void)ctx;
 
 	yaml_scalar_event_initialize(&event, NULL, NULL,
-	    (yaml_char_t*)str, len, true, true, YAML_ANY_SCALAR_STYLE);
+	    (yaml_char_t*)str, len, 1, 1, YAML_ANY_SCALAR_STYLE);
 	check_yaml(yaml_emitter_emit(&g_emitter, &event));
 
-	return true;
+	return 1;
 }
 
 static int
@@ -168,10 +165,10 @@ handle_string(void *ctx, const unsigned char *str, size_t len)
 	(void)ctx;
 
 	yaml_scalar_event_initialize(&event, NULL, NULL,
-	    (yaml_char_t*)str, len, true, true, YAML_ANY_SCALAR_STYLE);
+	    (yaml_char_t*)str, len, 1, 1, YAML_ANY_SCALAR_STYLE);
 	check_yaml(yaml_emitter_emit(&g_emitter, &event));
 
-	return true;
+	return 1;
 }
 
 static int
@@ -181,11 +178,11 @@ handle_map_start(void *ctx)
 
 	(void)ctx;
 
-	yaml_mapping_start_event_initialize(&event, NULL, NULL, true,
+	yaml_mapping_start_event_initialize(&event, NULL, NULL, 1,
 	    YAML_ANY_MAPPING_STYLE);
 	check_yaml(yaml_emitter_emit(&g_emitter, &event));
 
-	return true;
+	return 1;
 }
 
 static int
@@ -196,10 +193,10 @@ handle_map_key(void *ctx, const unsigned char *str, size_t len)
 	(void)ctx;
 
 	yaml_scalar_event_initialize(&event, NULL, NULL,
-	    (yaml_char_t*)str, len, true, true, YAML_ANY_SCALAR_STYLE);
+	    (yaml_char_t*)str, len, 1, 1, YAML_ANY_SCALAR_STYLE);
 	check_yaml(yaml_emitter_emit(&g_emitter, &event));
 
-	return true;
+	return 1;
 }
 
 static int
@@ -212,7 +209,7 @@ handle_map_end(void *ctx)
 	yaml_mapping_end_event_initialize(&event);
 	check_yaml(yaml_emitter_emit(&g_emitter, &event));
 
-	return true;
+	return 1;
 }
 
 static int
@@ -222,11 +219,11 @@ handle_array_start(void *ctx)
 
 	(void)ctx;
 
-	yaml_sequence_start_event_initialize(&event, NULL, NULL, false,
+	yaml_sequence_start_event_initialize(&event, NULL, NULL, 0,
 	    YAML_ANY_SEQUENCE_STYLE);
 	check_yaml(yaml_emitter_emit(&g_emitter, &event));
 
-	return true;
+	return 1;
 }
 
 static int
@@ -239,7 +236,7 @@ handle_array_end(void *ctx)
 	yaml_sequence_end_event_initialize(&event);
 	check_yaml(yaml_emitter_emit(&g_emitter, &event));
 
-	return true;
+	return 1;
 }
 
 static const yajl_callbacks callbacks = {
@@ -279,12 +276,12 @@ main(int argc, const char **argv)
 	yaml_emitter_initialize(&g_emitter);
 	yaml_emitter_set_output_file(&g_emitter, stdout);
 
-	g_yaml_initialized = true;
+	g_yaml_initialized = 1;
 
 	yaml_stream_start_event_initialize(&event, YAML_UTF8_ENCODING);
 	check_yaml(yaml_emitter_emit(&g_emitter, &event));
 
-	yaml_document_start_event_initialize(&event, NULL, NULL, NULL, true);
+	yaml_document_start_event_initialize(&event, NULL, NULL, NULL, 1);
 	check_yaml(yaml_emitter_emit(&g_emitter, &event));
 	
 	g_yajl = yajl_alloc(&callbacks, NULL, NULL);
@@ -299,7 +296,7 @@ main(int argc, const char **argv)
 
 	check_yajl(yajl_complete_parse(g_yajl));
 
-	yaml_document_end_event_initialize(&event, true);
+	yaml_document_end_event_initialize(&event, 1);
 	check_yaml(yaml_emitter_emit(&g_emitter, &event));
 
 	yaml_stream_end_event_initialize(&event);
