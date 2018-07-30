@@ -5,12 +5,11 @@
 #include <yajl/yajl_parse.h>
 #include <yaml.h>
 
-#define PROG_NAME	"json-yaml"
-#define PROG_VER	"1.0.1"
+#define VERSION "1.0.1"
 
 const char usage[] =
-    PROG_NAME " " PROG_VER "\n"
-    "usage: " PROG_NAME " [filename]\n";
+    "json-yaml " VERSION "\n"
+    "usage: json-yaml [filename]\n";
 
 static yajl_handle	g_yajl;
 static int		g_yaml_initialized;
