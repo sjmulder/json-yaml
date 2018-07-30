@@ -1,6 +1,14 @@
 Changelog
 =========
 
+Unreleased
+----------
+
+Date: TBD
+
+ * Fixed: `MANPREFIX` defaulted to `$(prefix)/man` rather than
+   `$(PREFIX)/man`
+
 Version 1.1.1
 -------------
 

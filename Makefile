@@ -1,5 +1,5 @@
 PREFIX    ?= /usr/local
-MANPREFIX ?= $(prefix)/man
+MANPREFIX ?= $(PREFIX)/man
 
 CFLAGS  += -I/usr/local/include -Wall -Wextra
 LDFLAGS += -L/usr/local/lib
