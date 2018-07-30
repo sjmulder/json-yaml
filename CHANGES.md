@@ -8,6 +8,7 @@ Date: TBD
 
  * Changed: rewritten Makefile
  * Changed: reorganised documentation files
+ * Changed: rewrote manual page in mdoc(1)
  * Removed: command line options. Any flag-like argument will cause the
    version and usage information to be printed.
 

@@ -1,9 +1,23 @@
-.TH JSON-YAML 1 2016-04-28
-.SH NAME
-json-yaml \- convert JSON to YAML
-.SH SYNOPSIS
-.B json-yaml [FILE]
-.SH DESCRIPTION
-Convert JSON to YAML. Uses standard output if no filename is supplied.
-.SH AUTHOR
-Sijmen Mulder <ik@sjmulder.nl>
+.Dd July 30, 2018
+.Dt JSON-YAML 1
+.Os
+.Sh NAME
+.Nm json-yaml
+.Nd convert JSON to YAML
+.Sh SYNOPSIS
+.Nm
+.Op Ar file
+.Sh DESCRIPTION
+Convert JSON to YAML.
+Uses standard output if no filename is supplied.
+.Sh EXAMPLES
+Convert a file:
+.Pp
+.Dl json-yaml sample.json
+.Pp
+Piping from a web API call:
+.Pp
+.Dl curl -s http://api.icndb.com/jokes/random | json-yaml
+.Sh AUTHORS
+.An Sijmen J. Mulder
+.Aq Mt ik@sjmulder.nl
