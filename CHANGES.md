@@ -10,7 +10,7 @@ Date: TBD
  * Changed: rewritten Makefile
  * Changed: reorganised documentation files
  * Changed: rewrote manual page in mdoc(1)
- * Changed: minor refactoring (removal of stdbool, etc)
+ * Changed: minor refactoring (removal of stdbool, use of stderr, etc)
  * Removed: command line options. Any flag-like argument will cause the
    version and usage information to be printed
 

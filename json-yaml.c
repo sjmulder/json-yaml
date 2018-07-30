@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <err.h>
 #include <yajl/yajl_parse.h>
 #include <yaml.h>
 
@@ -37,35 +38,30 @@ void check_yajl(yajl_status status)
 	if (status == yajl_status_ok)
 		return;
 
-	if (!(message = yajl_status_to_string(status)))
-		message = "no reason given";
+	if ((message = yajl_status_to_string(status)))
+		errx(1, "error parsing JSON: %s", message);
+	else
+		errx(1, "error parsing JSON");
 
-	fprintf(stderr, PROG_NAME ": error parsing JSON: %s\n", message);
 }
 
-static void check_yaml(int status)
+static
+void check_yaml(int status)
 {
 	if (status)
 		return;
 
 	switch (g_emitter.error) {
 	case YAML_MEMORY_ERROR:
-		fprintf(stderr, PROG_NAME ": error writing YAML: "
-		    "out of memory\n");
-		break;
-	
+		errx(1, "error writing YAML: out of memory");
+
 	case YAML_WRITER_ERROR:
 	case YAML_EMITTER_ERROR:
-		fprintf(stderr, PROG_NAME ": error writing YAML: %s\n",
-		    g_emitter.problem);
-		break;
+		errx(1, "error writing YAML: %s", g_emitter.problem);
 
 	default:
-		fprintf(stderr, PROG_NAME ": error writing YAML\n");
-		break;
+		errx(1, "error writing YAML");
 	}
-	
-	exit(EXIT_FAILURE);
 }
 
 static int
@@ -111,13 +107,10 @@ handle_integer(void *ctx, long long val)
 	(void)ctx;
 
 	num = snprintf(str, sizeof(str), "%lli", val);
-	if (num < 0) {
-		perror(PROG_NAME);
-		exit(EXIT_FAILURE);
-	} else if ((size_t)num >= sizeof(str)) {
-		fprintf(stderr, PROG_NAME ": number too large: %lli\n", val);
-		exit(EXIT_FAILURE);
-	}
+	if (num < 0)
+		err(1, NULL);
+	else if ((size_t)num >= sizeof(str))
+		errx(1, "number too large: %lli", val);
 
 	yaml_scalar_event_initialize(&event, NULL, NULL, (yaml_char_t *)str,
 	    (size_t)num, 1, 1, YAML_ANY_SCALAR_STYLE);
@@ -263,15 +256,13 @@ main(int argc, const char **argv)
 
 	atexit(cleanup);
 
-	if (argc < 2) {
+	if (argc < 2)
 		file = stdin;
-	} else if (argc > 2 || argv[1][0] == '-') {
+	else if (argc > 2 || argv[1][0] == '-') {
 		fputs(usage, stderr);
 		return 1;
-	} else if (!(file = fopen(argv[1], "r"))) {
-		perror(PROG_NAME);
-		exit(EXIT_FAILURE);
-	}
+	} else if (!(file = fopen(argv[1], "r")))
+		err(1, NULL);
 
 	yaml_emitter_initialize(&g_emitter);
 	yaml_emitter_set_output_file(&g_emitter, stdout);
@@ -289,10 +280,8 @@ main(int argc, const char **argv)
 	while ((num = fread(buf, 1, sizeof(buf), file)) > 0)
 		check_yajl(yajl_parse(g_yajl, buf, num));
 
-	if (ferror(file)) {
-		perror(PROG_NAME);
-		exit(EXIT_FAILURE);
-	}
+	if (ferror(file))
+		err(1, NULL);
 
 	check_yajl(yajl_complete_parse(g_yajl));
 
