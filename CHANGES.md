@@ -8,6 +8,8 @@ Date: TBD
 
  * Fixed: `MANPREFIX` defaulted to `$(prefix)/man` rather than
    `$(PREFIX)/man`
+ * Fixed: `make uninstall` did not respect `DESTDIR`, `PREFIX`, and
+   `MANPREFIX`.
 
 Version 1.1.1
 -------------

@@ -19,8 +19,8 @@ install: json-yaml
 	install -m644 json-yaml.1 $(DESTDIR)$(MANPREFIX)/man1/
 
 uninstall:
-	rm -f $(bindir)/json-yaml
-	rm -f $(mandir)/man1/json-yaml.1
+	rm -f $(DESTDIR)$(PREFIX)/bin/json-yaml
+	rm -f $(DESTDIR)$(MANPREFIX)/man1/json-yaml.1
 
 check: json-yaml sample.json sample.yaml
 	./json-yaml sample.json | diff -u sample.yaml -
