@@ -1,5 +1,5 @@
-TBD
----
+1.1.2 (2018-12-06)
+------------------
  - Fixed: `MANPREFIX` defaulted to `$(prefix)/man` rather than
    `$(PREFIX)/man`
  - Fixed: `make uninstall` did not respect `DESTDIR`, `PREFIX`, and
