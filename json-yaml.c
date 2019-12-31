@@ -13,8 +13,8 @@ const char usage[] =
 static yajl_handle	g_yajl;
 static yaml_emitter_t	g_emitter;
 
-static
-void check_yajl(yajl_status status)
+static void
+check_yajl(yajl_status status)
 {
 	const char *message;
 
@@ -31,8 +31,8 @@ void check_yajl(yajl_status status)
 
 }
 
-static
-void check_yaml(int status)
+static void
+check_yaml(int status)
 {
 	if (status)
 		return;
@@ -271,7 +271,7 @@ main(int argc, const char **argv)
 	yaml_document_start_event_initialize(&event, NULL, NULL, NULL,
 	    1);
 	check_yaml(yaml_emitter_emit(&g_emitter, &event));
-	
+
 	g_yajl = yajl_alloc(&callbacks, NULL, NULL);
 
 	while ((num = fread(buf, 1, sizeof(buf), file)) > 0)
