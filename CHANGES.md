@@ -1,5 +1,5 @@
-TBA
----
+1.2.1 (2019-12-31)
+------------------
  - Fixed: extraneous error message due to switch fallthrough.
 
 1.2 (2019-12-31)
