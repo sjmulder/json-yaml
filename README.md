@@ -1,14 +1,12 @@
 json-yaml
 =========
-
 **json-yaml** [_file_]
 
 Convert JSON to YAML. Uses standard input if no filename is supplied.
 
 Examples
 --------
-
-`./json-yaml sample.json`
+`$ json-yaml sample.json`
 
     firstName: John
     lastName: Smith
@@ -29,7 +27,7 @@ Examples
     children: []
     spouse: null
 
-`curl -s http://api.icndb.com/jokes/random | ./json-yaml`
+`$ curl -s http://api.icndb.com/jokes/random | json-yaml`
 
     type: success
     value:
@@ -39,7 +37,6 @@ Examples
 
 Installation
 ------------
-
 Dependencies:
 
  * [libyaml](http://pyyaml.org/wiki/LibYAML)
@@ -49,11 +46,12 @@ From souce, after tweaking the Makefile to taste:
 
     make
     make check
-    make install
+    make install   [DESTDIR=] [PREFIX=/usr/local]
 
-Uninstall with `make uninstall`
+To uninstall:
+
+    make uninstall [DESTDIR=] [PREFIX=/usr/local]
 
 Authors
 -------
-
 Sijmen Mulder <ik@sjmulder.nl>
