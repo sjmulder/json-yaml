@@ -1,4 +1,3 @@
-#include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 #include <err.h>
@@ -12,22 +11,7 @@ const char usage[] =
     "usage: json-yaml [filename]\n";
 
 static yajl_handle	g_yajl;
-static int		g_yaml_initialized;
 static yaml_emitter_t	g_emitter;
-
-static
-void cleanup()
-{
-	if (g_yajl) {
-		yajl_free(g_yajl);
-		g_yajl = NULL;
-	}
-
-	if (g_yaml_initialized) {
-		yaml_emitter_delete(&g_emitter);
-		g_yaml_initialized = 0;
-	}
-}
 
 static
 void check_yajl(yajl_status status)
@@ -257,8 +241,6 @@ main(int argc, const char **argv)
 	unsigned char buf[4096];
 	size_t num;
 
-	atexit(cleanup);
-
 	if (argc < 2)
 		file = stdin;
 	else if (argc > 2 || argv[1][0] == '-') {
@@ -269,8 +251,6 @@ main(int argc, const char **argv)
 
 	yaml_emitter_initialize(&g_emitter);
 	yaml_emitter_set_output_file(&g_emitter, stdout);
-
-	g_yaml_initialized = 1;
 
 	yaml_stream_start_event_initialize(&event, YAML_UTF8_ENCODING);
 	check_yaml(yaml_emitter_emit(&g_emitter, &event));
