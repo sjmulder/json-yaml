@@ -1,6 +1,6 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
-#include <err.h>
 #include <yajl/yajl_parse.h>
 #include <yaml.h>
 
@@ -22,9 +22,12 @@ void check_yajl(yajl_status status)
 		return;
 
 	if ((message = yajl_status_to_string(status)))
-		errx(1, "error parsing JSON: %s", message);
+		fprintf(stderr, "json-yaml: error parsing JSON: %s\n",
+		    message);
 	else
-		errx(1, "error parsing JSON");
+		fprintf(stderr, "json-yaml: error parsing JSON\n");
+
+	exit(1);
 
 }
 
@@ -36,15 +39,19 @@ void check_yaml(int status)
 
 	switch (g_emitter.error) {
 	case YAML_MEMORY_ERROR:
-		errx(1, "error writing YAML: out of memory");
+		fprintf(stderr, "json-yaml: error writing YAML: out of "
+		    "memory\n");
 
 	case YAML_WRITER_ERROR:
 	case YAML_EMITTER_ERROR:
-		errx(1, "error writing YAML: %s", g_emitter.problem);
+		fprintf(stderr, "json-yaml: error writing YAML: %s\n",
+		    g_emitter.problem);
 
 	default:
-		errx(1, "error writing YAML");
+		fprintf(stderr, "json-yaml: error writing YAML\n");
 	}
+
+	exit(1);
 }
 
 static int
@@ -92,10 +99,14 @@ handle_integer(void *ctx, long long val)
 	(void)ctx;
 
 	num = snprintf(str, sizeof(str), "%lli", val);
-	if (num < 0)
-		err(1, NULL);
-	else if ((size_t)num >= sizeof(str))
-		errx(1, "number too large: %lli", val);
+	if (num < 0) {
+		perror("json-yaml");
+		exit(1);
+	} else if ((size_t)num >= sizeof(str)) {
+		fprintf(stderr, "json-yaml: number too large: %lli\n",
+		    val);
+		exit(1);
+	}
 
 	yaml_scalar_event_initialize(&event, NULL, NULL,
 	    (yaml_char_t *)str, (size_t)num, 1, 1,
@@ -246,8 +257,10 @@ main(int argc, const char **argv)
 	else if (argc > 2 || argv[1][0] == '-') {
 		fputs(usage, stderr);
 		return 1;
-	} else if (!(file = fopen(argv[1], "r")))
-		err(1, NULL);
+	} else if (!(file = fopen(argv[1], "r"))) {
+		perror("json-yaml");
+		exit(1);
+	}
 
 	yaml_emitter_initialize(&g_emitter);
 	yaml_emitter_set_output_file(&g_emitter, stdout);
@@ -264,8 +277,10 @@ main(int argc, const char **argv)
 	while ((num = fread(buf, 1, sizeof(buf), file)) > 0)
 		check_yajl(yajl_parse(g_yajl, buf, num));
 
-	if (ferror(file))
-		err(1, NULL);
+	if (ferror(file)) {
+		perror("json-yaml");
+		exit(1);
+	}
 
 	check_yajl(yajl_complete_parse(g_yajl));
 

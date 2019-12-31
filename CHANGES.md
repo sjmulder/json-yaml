@@ -1,6 +1,7 @@
 TBA
 ----
  - Changed: Makefile no longer hardcodes /usr/local/{include,lib}.
+ - Changed: no longer requires nonstandard libc headers (err.h).
  - Removed: cleanup function; let OS handle it.
 
 1.1.2 (2018-12-06)
