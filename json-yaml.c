@@ -86,10 +86,12 @@ handle_boolean(void *ctx, int val)
 
 	if (val) {
 		yaml_scalar_event_initialize(&event, NULL, NULL,
-		    (yaml_char_t*)"true", 4, 1, 1, YAML_ANY_SCALAR_STYLE);
+		    (yaml_char_t*)"true", 4, 1, 1,
+		    YAML_ANY_SCALAR_STYLE);
 	} else {
 		yaml_scalar_event_initialize(&event, NULL, NULL,
-		    (yaml_char_t*)"false", 5, 1, 1, YAML_ANY_SCALAR_STYLE);
+		    (yaml_char_t*)"false", 5, 1, 1,
+		    YAML_ANY_SCALAR_STYLE);
 	}
 
 	check_yaml(yaml_emitter_emit(&g_emitter, &event));
@@ -111,8 +113,9 @@ handle_integer(void *ctx, long long val)
 	else if ((size_t)num >= sizeof(str))
 		errx(1, "number too large: %lli", val);
 
-	yaml_scalar_event_initialize(&event, NULL, NULL, (yaml_char_t *)str,
-	    (size_t)num, 1, 1, YAML_ANY_SCALAR_STYLE);
+	yaml_scalar_event_initialize(&event, NULL, NULL,
+	    (yaml_char_t *)str, (size_t)num, 1, 1,
+	    YAML_ANY_SCALAR_STYLE);
 	check_yaml(yaml_emitter_emit(&g_emitter, &event));
 
 	return 1;
@@ -128,8 +131,9 @@ handle_double(void *ctx, double val)
 
 	int num = snprintf(str, sizeof(str), "%f", val);
 
-	yaml_scalar_event_initialize(&event, NULL, NULL, (yaml_char_t*)str,
-	    (size_t)num, 1, 1, YAML_ANY_SCALAR_STYLE);
+	yaml_scalar_event_initialize(&event, NULL, NULL,
+	    (yaml_char_t*)str, (size_t)num, 1, 1,
+	    YAML_ANY_SCALAR_STYLE);
 	check_yaml(yaml_emitter_emit(&g_emitter, &event));
 
 	return 1;
@@ -271,7 +275,8 @@ main(int argc, const char **argv)
 	yaml_stream_start_event_initialize(&event, YAML_UTF8_ENCODING);
 	check_yaml(yaml_emitter_emit(&g_emitter, &event));
 
-	yaml_document_start_event_initialize(&event, NULL, NULL, NULL, 1);
+	yaml_document_start_event_initialize(&event, NULL, NULL, NULL,
+	    1);
 	check_yaml(yaml_emitter_emit(&g_emitter, &event));
 	
 	g_yajl = yajl_alloc(&callbacks, NULL, NULL);
