@@ -2,13 +2,8 @@ DESTDIR   ?=
 PREFIX    ?= /usr/local
 MANPREFIX ?= $(PREFIX)/man
 
-CFLAGS  += -I/usr/local/include -Wall -Wextra
-LDFLAGS += -L/usr/local/lib
-LDLIBS  += -lyajl -lyaml
-
-# pkgsrc-based (NetBSD, Minix)
-#CFLAGS  += -I/usr/pkg/include
-#LDFLAGS += -L/usr/pkg/lib -Wl,-R/usr/pkg/lib
+CFLAGS += -Wall -Wextra
+LDLIBS += -lyajl -lyaml
 
 all: json-yaml
 
