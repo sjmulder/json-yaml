@@ -71,4 +71,4 @@ To uninstall:
 
 Authors
 -------
-Sijmen Mulder <ik@sjmulder.nl>
+Sijmen Mulder (<ik@sjmulder.nl>)
