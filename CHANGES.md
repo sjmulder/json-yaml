@@ -4,6 +4,7 @@ TBA
  - Changed: no longer requires nonstandard libc headers (err.h).
  - Changed: small documentation tweaks.
  - Removed: cleanup function; let OS handle it.
+ - Removed: version number from usage output.
 
 1.1.2 (2018-12-06)
 ------------------

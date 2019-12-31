@@ -4,12 +4,6 @@
 #include <yajl/yajl_parse.h>
 #include <yaml.h>
 
-#define VERSION "1.1.1"
-
-const char usage[] =
-    "json-yaml " VERSION "\n"
-    "usage: json-yaml [filename]\n";
-
 static yajl_handle	g_yajl;
 static yaml_emitter_t	g_emitter;
 
@@ -255,8 +249,8 @@ main(int argc, const char **argv)
 	if (argc < 2)
 		file = stdin;
 	else if (argc > 2 || argv[1][0] == '-') {
-		fputs(usage, stderr);
-		return 1;
+		fprintf(stderr, "usage: json-yaml [filename]\n");
+		exit(1);
 	} else if (!(file = fopen(argv[1], "r"))) {
 		perror("json-yaml");
 		exit(1);
