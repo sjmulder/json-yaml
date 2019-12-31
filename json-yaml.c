@@ -237,7 +237,7 @@ int
 main(int argc, const char **argv)
 {
 	FILE *file;
-	yaml_event_t event;;
+	yaml_event_t event;
 	unsigned char buf[4096];
 	size_t num;
 
