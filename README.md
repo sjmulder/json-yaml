@@ -1,7 +1,7 @@
 json-yaml
 =========
 
-**json-yaml** [_options_] [_file_]
+**json-yaml** [_file_]
 
 Convert JSON to YAML. Uses standard output if no filename is supplied.
 
