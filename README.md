@@ -2,7 +2,9 @@ json-yaml
 =========
 **json-yaml** [_file_]
 
-Convert JSON to YAML. Uses standard input if no filename is supplied.
+**yaml-json** [_file_]
+
+Convert JSON to YAML or back. Uses standard input if no filename is supplied.
 
 Examples
 --------
@@ -20,12 +22,27 @@ Examples
     phoneNumbers:
     - type: home
       number: 212 555-1234
-    - type: office
-      number: 646 555-4567
-    - type: mobile
-      number: 123 456-7890
-    children: []
-    spouse: null
+    [...]
+
+`$ yaml-json sample.yaml`
+
+    {
+      "firstName": "John",
+      "lastName": "Smith",
+      "isAlive": true,
+      "age": 25,
+      "address": {
+        "streetAddress": "21 2nd Street",
+        "city": "New York",
+        "state": "NY",
+        "postalCode": "10021-3100"
+      },
+      "phoneNumbers": [
+        {
+          "type": "home",
+          "number": "212 555-1234"
+        },
+    [...]
 
 `$ curl -s http://api.icndb.com/jokes/random | json-yaml`
 

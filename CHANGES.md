@@ -1,5 +1,7 @@
 TBA
 ----
+ - Added: yaml-json to convert YAML back into JSON. Doesn't suport YAML
+   aliases yet.
  - Changed: Makefile no longer hardcodes /usr/local/{include,lib}.
  - Changed: no longer requires nonstandard libc headers (err.h).
  - Changed: small documentation tweaks.

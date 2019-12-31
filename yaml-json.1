@@ -1,25 +1,23 @@
-.Dd July 30, 2018
-.Dt JSON-YAML 1
+.Dd December 31, 2019
+.Dt YAML-JSON 1
 .Os
 .Sh NAME
 .Nm json-yaml
-.Nd convert JSON to YAML
+.Nd convert YAML to JSON
 .Sh SYNOPSIS
 .Nm
 .Op Ar file
 .Sh DESCRIPTION
-Convert JSON to YAML.
+Convert YAML to JSON.
 Uses standard input if no filename is supplied.
 .Sh EXAMPLES
 Convert a file:
 .Pp
-.Dl $ json-yaml sample.json
-.Pp
-Piping from a web API call:
-.Pp
-.Dl $ curl -s http://api.icndb.com/jokes/random | json-yaml
+.Dl $ yaml-json sample.yaml
 .Sh SEE ALSO
-.Xr yaml-json 1
+.Xr json-yaml 1
 .Sh AUTHORS
 .An Sijmen J. Mulder
 .Aq Mt ik@sjmulder.nl
+.Sh BUGS
+Aliases are not yet supported.
