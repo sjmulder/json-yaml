@@ -22,7 +22,7 @@ TBA
 ----------------
  - Removed: command line options. Any flag-like argument will cause the
    version and usage information to be printed
- - Fixed: the YAJL handle was not cleaned up as indented
+ - Fixed: the YAJL handle was not cleaned up as intended
  - Changed: rewritten Makefile
  - Changed: rewritten manual page in mdoc(1)
  - Changed: reorganised documentation files
