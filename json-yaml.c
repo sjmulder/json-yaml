@@ -35,14 +35,17 @@ check_yaml(int status)
 	case YAML_MEMORY_ERROR:
 		fprintf(stderr, "json-yaml: error writing YAML: out of "
 		    "memory\n");
+		break;
 
 	case YAML_WRITER_ERROR:
 	case YAML_EMITTER_ERROR:
 		fprintf(stderr, "json-yaml: error writing YAML: %s\n",
 		    g_emitter.problem);
+		break;
 
 	default:
 		fprintf(stderr, "json-yaml: error writing YAML\n");
+		break;
 	}
 
 	exit(1);

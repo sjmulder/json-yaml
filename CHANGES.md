@@ -1,3 +1,7 @@
+TBA
+---
+ - Fixed: extraneous error message due to switch fallthrough.
+
 1.2 (2019-12-31)
 ----------------
  - Added: yaml-json to convert YAML back into JSON. Doesn't suport YAML
