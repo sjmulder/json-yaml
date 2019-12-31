@@ -3,7 +3,7 @@ json-yaml
 
 **json-yaml** [_file_]
 
-Convert JSON to YAML. Uses standard output if no filename is supplied.
+Convert JSON to YAML. Uses standard input if no filename is supplied.
 
 Examples
 --------
