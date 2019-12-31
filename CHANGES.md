@@ -1,5 +1,5 @@
-TBA
-----
+1.2 (2019-12-31)
+----------------
  - Added: yaml-json to convert YAML back into JSON. Doesn't suport YAML
    aliases yet.
  - Changed: Makefile no longer hardcodes /usr/local/{include,lib}.
