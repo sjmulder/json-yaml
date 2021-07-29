@@ -1,0 +1,8 @@
+image: debian/stable
+packages:
+ - libyajl-dev
+ - libyaml-dev
+sources:
+ - https://github.com/sjmulder/json-yaml
+tasks:
+ - build: cd json-yaml && make all check

@@ -1,5 +1,9 @@
 json-yaml
 =========
+[![Build status](
+ https://builds.sr.ht/~sjmulder/json-yaml.svg)](
+ https://builds.sr.ht/~sjmulder/json-yaml)
+
 **json-yaml** [_file_]
 
 **yaml-json** [_file_]
